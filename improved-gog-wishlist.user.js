@@ -10,6 +10,7 @@
 
 const MAXIMUM_PRICE_CLASS = "maximumPrice";
 const MINIMUM_DISCOUNT_CLASS = "minimumDiscount";
+const APPLY_FILTERS_CLASS = "applyFilters";
 
 const uiHtml =
     `
@@ -27,6 +28,9 @@ const uiHtml =
                <input class="${MINIMUM_DISCOUNT_CLASS}" type="number">
             </label>
         <li>
+        <li>
+            <button class="${APPLY_FILTERS_CLASS}">Apply filters</button>
+        </li>
     </ul>
 </div>`;
 
@@ -92,8 +96,9 @@ function createUi() {
 }
 
 function attachEventListeners() {
-    getMaximumPriceElement().addEventListener("input", handleMaximumPriceChange);
-    getMinimumDiscountElement().addEventListener("input", handleMinimumDiscountChange);
+    getMaximumPriceElement().addEventListener("input", () => updateList());
+    getMinimumDiscountElement().addEventListener("input", () => updateList());
+    getApplyFiltersElement().addEventListener("click", () => updateList());
 }
 
 function getMaximumPriceElement() {
@@ -104,12 +109,8 @@ function getMinimumDiscountElement() {
     return document.getElementsByClassName(MINIMUM_DISCOUNT_CLASS)[0];
 }
 
-function handleMaximumPriceChange() {
-    updateList();
-}
-
-function handleMinimumDiscountChange() {
-    updateList();
+function getApplyFiltersElement() {
+    return document.getElementsByClassName(APPLY_FILTERS_CLASS)[0];
 }
 
 function getMaximumPrice() {
