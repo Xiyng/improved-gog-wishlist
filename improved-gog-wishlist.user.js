@@ -35,6 +35,7 @@ const customCss =
     border-width: 1px;
     color: #686868;
     padding: 0.25em 1em;
+    text-transform: uppercase;
 }
 `;
 
