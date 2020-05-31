@@ -27,6 +27,16 @@ const customCss =
     margin-bottom: 17px;
 }
 
+.customFilter input {
+    background-color: #e6e6e6;
+    border-color: #b7b7b7;
+    border-radius: 1000vh;
+    border-style: solid;
+    border-width: 1px;
+    color: gray;
+    padding-right: 0.5em;
+}
+
 .${APPLY_FILTERS_CLASS} {
     background-color: rgba(0, 0, 0, 0.01);
     border-color: #a6a6a6;
