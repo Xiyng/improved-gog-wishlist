@@ -16,6 +16,7 @@ const customCss =
     `
 .customFilterWrapper {
     padding: 17px;
+    z-index: initial;
 }
 
 .customFilters {
