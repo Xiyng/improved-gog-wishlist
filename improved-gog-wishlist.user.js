@@ -34,6 +34,46 @@ const uiHtml =
     </ul>
 </div>`;
 
+class FilterUi {
+    element = null;
+
+    create() {
+        const container = document.createElement("div");
+        this.element = container;
+        const parent = document.getElementsByClassName("account__filters")[0];
+        container.innerHTML = uiHtml;
+        parent.appendChild(container);
+    }
+
+    attachEventListeners() {
+        this.getMaximumPriceElement().addEventListener("input", () => updateList(this));
+        this.getMinimumDiscountElement().addEventListener("input", () => updateList(this));
+        this.getApplyFiltersElement().addEventListener("click", () => updateList(this));
+    }
+
+    getMaximumPriceElement() {
+        return this.element.getElementsByClassName(MAXIMUM_PRICE_CLASS)[0];
+    }
+
+    getMinimumDiscountElement() {
+        return this.element.getElementsByClassName(MINIMUM_DISCOUNT_CLASS)[0];
+    }
+
+    getApplyFiltersElement() {
+        return this.element.getElementsByClassName(APPLY_FILTERS_CLASS)[0];
+    }
+
+    getMaximumPrice() {
+        const valueString = this.getMaximumPriceElement().value;
+        return valueString === "" ? null : Number(valueString);
+    }
+
+    getMinimumDiscountPercentage() {
+        const valueString = this.getMinimumDiscountElement().value;
+        return valueString === "" ? null : Number(valueString);
+    }
+}
+
 class Item {
     element = null;
     price = null;
@@ -84,51 +124,17 @@ class Item {
 }
 
 function initialize() {
-    createUi();
-    attachEventListeners();
+    const filterUi = new FilterUi();
+    filterUi.create();
+    filterUi.attachEventListeners();
 }
 
-function createUi() {
-    const container = document.createElement("div");
-    const parent = document.getElementsByClassName("account__filters")[0];
-    container.innerHTML = uiHtml;
-    parent.appendChild(container);
-}
-
-function attachEventListeners() {
-    getMaximumPriceElement().addEventListener("input", () => updateList());
-    getMinimumDiscountElement().addEventListener("input", () => updateList());
-    getApplyFiltersElement().addEventListener("click", () => updateList());
-}
-
-function getMaximumPriceElement() {
-    return document.getElementsByClassName(MAXIMUM_PRICE_CLASS)[0];
-}
-
-function getMinimumDiscountElement() {
-    return document.getElementsByClassName(MINIMUM_DISCOUNT_CLASS)[0];
-}
-
-function getApplyFiltersElement() {
-    return document.getElementsByClassName(APPLY_FILTERS_CLASS)[0];
-}
-
-function getMaximumPrice() {
-    const valueString = getMaximumPriceElement().value;
-    return valueString === "" ? null : Number(valueString);
-}
-
-function getMinimumDiscountPercentage() {
-    const valueString = getMinimumDiscountElement().value;
-    return valueString === "" ? null : Number(valueString);
-}
-
-function updateList() {
+function updateList(filterUi) {
     const itemElements = getItemElements();
     const items = itemElements.map(Item.fromElement);
     const filters = {
-        maximumPrice: getMaximumPrice(),
-        minimumDiscountPercentage: getMinimumDiscountPercentage()
+        maximumPrice: filterUi.getMaximumPrice(),
+        minimumDiscountPercentage: filterUi.getMinimumDiscountPercentage()
     };
     for (const item of items) {
         if (item.passesFilters(filters)) {
