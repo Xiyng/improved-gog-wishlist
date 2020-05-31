@@ -8,32 +8,38 @@
 
 "use strict";
 
-const MAXIMUM_PRICE_CLASS = "maximumPrice";
-const MINIMUM_DISCOUNT_CLASS = "minimumDiscount";
+const MAXIMUM_PRICE_ID = "maximumPrice";
+const MINIMUM_DISCOUNT_ID = "minimumDiscount";
 const APPLY_FILTERS_CLASS = "applyFilters";
 
 const customCss =
     `
+.customFilterWrapper {
+    padding: 17px;
+}
+
 .customFilters {
-    padding-top: 17px;
-    padding-bottom: 17px;
+    display: grid;
+    grid-gap: 17px;
+    grid-template-columns: max-content max-content;
 }
 
-.customFilter:not(:first-child) {
-    margin-top: 17px;
+.customFilters .filter {
+    padding: 0;
 }
 
-.customFilter:not(:last-child) {
-    margin-bottom: 17px;
+.customFilters label {
+    text-align: right;
 }
 
-.customFilter input {
+.customFilters input.filter {
     background-color: #e6e6e6;
     border-color: #b7b7b7;
     border-radius: 1000vh;
     border-style: solid;
     border-width: 1px;
     color: gray;
+    padding-left: 0.5em;
     padding-right: 0.5em;
 }
 
@@ -44,6 +50,7 @@ const customCss =
     border-style: solid;
     border-width: 1px;
     color: #686868;
+    margin-top: 17px;
     padding: 0.25em 1em;
     text-transform: uppercase;
 }
@@ -51,24 +58,15 @@ const customCss =
 
 const uiHtml =
     `
-<div class="customFilters module module--filters">
-    <ul>
-        <li class="filter customFilter">
-            <label>
-               <span>Maximum price</span>
-               <input class="${MAXIMUM_PRICE_CLASS}" type="number">
-            </label>
-        </li>
-        <li class="filter customFilter">
-            <label>
-               <span>Minimum discount percentage</span>
-               <input class="${MINIMUM_DISCOUNT_CLASS}" type="number">
-            </label>
-        <li>
-        <li class="filter customFilter">
-            <button class="${APPLY_FILTERS_CLASS}">Apply filters</button>
-        </li>
-    </ul>
+<div class="customFilterWrapper module module--filters">
+    <div class="customFilters">
+        <label for="${MAXIMUM_PRICE_ID}" class="filter">Maximum price</label>
+        <input id="${MAXIMUM_PRICE_ID}" class="filter" type="number">
+
+        <label for="${MAXIMUM_PRICE_ID}" class="filter">Minimum discount percentage</label>
+        <input id="${MINIMUM_DISCOUNT_ID}" class="filter" type="number">
+    </div>
+    <button class="${APPLY_FILTERS_CLASS}">Apply filters</button>
 </div>
 `;
 
@@ -90,11 +88,11 @@ class FilterUi {
     }
 
     getMaximumPriceElement() {
-        return this.element.getElementsByClassName(MAXIMUM_PRICE_CLASS)[0];
+        return document.getElementById(MAXIMUM_PRICE_ID);
     }
 
     getMinimumDiscountElement() {
-        return this.element.getElementsByClassName(MINIMUM_DISCOUNT_CLASS)[0];
+        return document.getElementById(MINIMUM_DISCOUNT_ID);
     }
 
     getApplyFiltersElement() {
