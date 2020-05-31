@@ -26,6 +26,16 @@ const customCss =
 .customFilter:not(:last-child) {
     margin-bottom: 17px;
 }
+
+.${APPLY_FILTERS_CLASS} {
+    background-color: rgba(0, 0, 0, 0.01);
+    border-color: #a6a6a6;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    color: #686868;
+    padding: 0.25em 1em;
+}
 `;
 
 const uiHtml =
