@@ -12,27 +12,44 @@ const MAXIMUM_PRICE_CLASS = "maximumPrice";
 const MINIMUM_DISCOUNT_CLASS = "minimumDiscount";
 const APPLY_FILTERS_CLASS = "applyFilters";
 
+const customCss =
+    `
+.customFilters {
+    padding-top: 17px;
+    padding-bottom: 17px;
+}
+
+.customFilter:not(:first-child) {
+    margin-top: 17px;
+}
+
+.customFilter:not(:last-child) {
+    margin-bottom: 17px;
+}
+`;
+
 const uiHtml =
     `
-<div>
+<div class="customFilters module module--filters">
     <ul>
-        <li>
+        <li class="filter customFilter">
             <label>
                <span>Maximum price</span>
                <input class="${MAXIMUM_PRICE_CLASS}" type="number">
             </label>
         </li>
-        <li>
+        <li class="filter customFilter">
             <label>
                <span>Minimum discount percentage</span>
                <input class="${MINIMUM_DISCOUNT_CLASS}" type="number">
             </label>
         <li>
-        <li>
+        <li class="filter customFilter">
             <button class="${APPLY_FILTERS_CLASS}">Apply filters</button>
         </li>
     </ul>
-</div>`;
+</div>
+`;
 
 class FilterUi {
     element = null;
@@ -124,9 +141,18 @@ class Item {
 }
 
 function initialize() {
+    injectCss();
+
     const filterUi = new FilterUi();
     filterUi.create();
     filterUi.attachEventListeners();
+}
+
+function injectCss() {
+    const styleElement = document.createElement("style");
+    styleElement.type = "text/css";
+    styleElement.textContent = customCss;
+    document.head.appendChild(styleElement);
 }
 
 function updateList(filterUi) {
