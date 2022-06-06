@@ -3,6 +3,7 @@
 // @version  0.1
 // @author   Xiyng
 // @match    https://www.gog.com/account/wishlist
+// @match    https://www.gog.com/*/account/wishlist
 // @grant    none
 // ==/UserScript==
 
