@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Improved GOG Wishlist
-// @version  0.1
+// @version  0.1.1
 // @author   Xiyng
 // @match    https://www.gog.com/account/wishlist
 // @match    https://www.gog.com/*/account/wishlist
